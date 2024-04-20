@@ -30,4 +30,10 @@ public class Tarefa {
 
   private String observacoes;
 
+  public Tarefa(TarefaDTO data) {
+    this.nome = data.nome();
+    this.status = data.status();
+    this.observacoes = data.observacoes();
+  }
+
 }
