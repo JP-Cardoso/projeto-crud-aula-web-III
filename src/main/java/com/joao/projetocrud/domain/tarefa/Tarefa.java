@@ -1,11 +1,5 @@
 package com.joao.projetocrud.domain.tarefa;
 
-import java.time.LocalDateTime;
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,13 +29,5 @@ public class Tarefa {
   private String status;
 
   private String observacoes;
-
-  @CreatedDate
-  @Column(name = "data_criacao")
-  private LocalDateTime dataCriacao;
-
-  @LastModifiedDate
-  @Column(name = "data_atualizacao")
-  private LocalDateTime dataAtualizacao;
 
 }
