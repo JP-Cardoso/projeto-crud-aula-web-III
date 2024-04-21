@@ -51,7 +51,7 @@ public class TarefaReposiotyTest {
     Optional<Tarefa> tarefaEncontrada = Optional.ofNullable(this.retornaTarefa(tarefa.getId()));
     assertThat(tarefaEncontrada.isPresent()).isTrue();
 
-    if(tarefaEncontrada.isPresent()) {
+    if (tarefaEncontrada.isPresent()) {
       Tarefa atualizarTarefa = tarefaEncontrada.get();
       atualizarTarefa.setNome("Lavar a louça do jantar");
       atualizarTarefa.setObservacoes("Se não lavar morre");
@@ -64,6 +64,20 @@ public class TarefaReposiotyTest {
     assertThat(result.get().getStatus()).isEqualTo("Pendente");
   }
 
+  @Test
+  @DisplayName("deve deletar uma tarefa")
+  void deveDeletarUmatarefa() {
+    TarefaDTO data = new TarefaDTO("Lavar louça", "pendente", "Se não lavar morre");
+    Tarefa tarefa = this.criarTarefa(data);
+    Optional<Tarefa> tarefaEncontrada = Optional.ofNullable(this.retornaTarefa(tarefa.getId()));
+    assertThat(tarefaEncontrada.isPresent()).isTrue();
+
+    this.tarefaRepository.deleteById(tarefaEncontrada.get().getId());
+
+    Optional<Tarefa> tarefaDeletada = Optional.ofNullable(this.retornaTarefa(tarefa.getId()));
+    assertThat(tarefaDeletada.isPresent()).isFalse();
+  }
+
   private Tarefa criarTarefa(TarefaDTO data) {
     Tarefa novaTarefa = new Tarefa(data);
     this.entityManager.persist(novaTarefa);
@@ -72,7 +86,7 @@ public class TarefaReposiotyTest {
 
   private Tarefa retornaTarefa(String id) {
     Optional<Tarefa> result = this.tarefaRepository.findById(id);
-    if(result.isPresent()) {
+    if (result.isPresent()) {
       return result.get();
     }
     return null;
