@@ -1,5 +1,5 @@
 CREATE TABLE tarefas (
-    id TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
     nome VARCHAR(255) NOT NULL,
     descricao TEXT,
     status VARCHAR(50),
