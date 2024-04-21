@@ -1,12 +1,9 @@
 package com.joao.projetocrud.infra.http.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.joao.projetocrud.domain.tarefa.Tarefa;
 import com.joao.projetocrud.domain.tarefa.TarefaDTO;
-import com.joao.projetocrud.infra.repositories.tarefa.TarefaRepository;
 import com.joao.projetocrud.useCases.tarefa.CreateTarefa;
 import com.joao.projetocrud.useCases.tarefa.DeleteTarefa;
 import com.joao.projetocrud.useCases.tarefa.UpdateTarefa;
@@ -24,9 +20,6 @@ import com.joao.projetocrud.useCases.tarefa.UpdateTarefa;
 @RestController
 @RequestMapping("/tarefa")
 public class TarefaController {
-
-  @Autowired
-  TarefaRepository tarefaRepository;
 
   @Autowired
   CreateTarefa createTarefa;
@@ -38,7 +31,7 @@ public class TarefaController {
   DeleteTarefa deleteTarefa;
 
   @PostMapping
-  public ResponseEntity<Tarefa> criarTarefa(@RequestBody TarefaDTO data) {
+  public ResponseEntity<Tarefa> criarTarefa(@RequestBody @Validated TarefaDTO  data) {
     Tarefa newTarefa = this.createTarefa.execute(data);
     return ResponseEntity.ok().body(newTarefa);
   }
@@ -62,11 +55,4 @@ public class TarefaController {
     }
     return ResponseEntity.notFound().build();
   }
-
-  @GetMapping
-  public ResponseEntity<List<Tarefa>> listaTarefas() {
-    List<Tarefa> tarefas = this.tarefaRepository.findAll();
-    return new ResponseEntity<>(tarefas, HttpStatus.OK);
-  }
-
 }

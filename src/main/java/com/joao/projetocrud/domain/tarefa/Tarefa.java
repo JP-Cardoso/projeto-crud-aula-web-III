@@ -28,12 +28,15 @@ public class Tarefa {
 
   private String status;
 
+  private String descricao;
+
   private String observacoes;
 
   public Tarefa(TarefaDTO data) {
     this.nome = data.nome();
     this.status = data.status();
     this.observacoes = data.observacoes();
+    this.descricao = "Sem Descrição";
   }
 
 }

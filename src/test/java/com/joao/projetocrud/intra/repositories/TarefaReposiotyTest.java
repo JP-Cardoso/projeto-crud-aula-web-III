@@ -29,7 +29,7 @@ public class TarefaReposiotyTest {
   @Test
   @DisplayName("deve salvar uma tarefa no banco de dados")
   void devCriarTarefa() {
-    TarefaDTO data = new TarefaDTO("Lavar louça", "pendente", "Se não lavar morre");
+    TarefaDTO data = new TarefaDTO("Lavar louça", "pendente", "Se não lavar morre", "Lavar");
     this.criarTarefa(data);
     Optional<Tarefa> result = this.tarefaRepository.findByNome("Lavar louça");
 
@@ -46,7 +46,7 @@ public class TarefaReposiotyTest {
   @Test
   @DisplayName("deve atualizar uma tarefa")
   void deveAtualizarUmaTarefa() {
-    TarefaDTO data = new TarefaDTO("Lavar louça", "pendente", "Se não lavar morre");
+    TarefaDTO data = new TarefaDTO("Lavar louça", "pendente", "Se não lavar morre", "Lavar");
     Tarefa tarefa = this.criarTarefa(data);
     Optional<Tarefa> tarefaEncontrada = Optional.ofNullable(this.retornaTarefa(tarefa.getId()));
     assertThat(tarefaEncontrada.isPresent()).isTrue();
@@ -67,7 +67,7 @@ public class TarefaReposiotyTest {
   @Test
   @DisplayName("deve deletar uma tarefa")
   void deveDeletarUmatarefa() {
-    TarefaDTO data = new TarefaDTO("Lavar louça", "pendente", "Se não lavar morre");
+    TarefaDTO data = new TarefaDTO("Lavar louça", "pendente", "Se não lavar morre", "Lavar");
     Tarefa tarefa = this.criarTarefa(data);
     Optional<Tarefa> tarefaEncontrada = Optional.ofNullable(this.retornaTarefa(tarefa.getId()));
     assertThat(tarefaEncontrada.isPresent()).isTrue();
